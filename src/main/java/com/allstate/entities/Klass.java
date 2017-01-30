@@ -5,13 +5,14 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Date;
 
 @Entity
 @Table(name = "klasses")
-public class Klasses {
+public class Klass {
 
     private int id;
     private int version;
@@ -49,6 +50,7 @@ public class Klasses {
     }
 
     @NotNull
+    @Min(value = 0)
     public int getCredits() {
         return credits;
     }

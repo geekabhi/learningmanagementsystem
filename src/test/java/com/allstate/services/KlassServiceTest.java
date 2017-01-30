@@ -1,6 +1,6 @@
 package com.allstate.services;
 
-import com.allstate.entities.Klasses;
+import com.allstate.entities.Klass;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,12 +17,12 @@ import static org.junit.Assert.*;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @Sql(value = {"/sql/seed.sql"})
-public class KlassesServiceTest {
+public class KlassServiceTest {
 
-    private KlassesService service;
+    private KlassService service;
 
     @Autowired
-    public void setService(KlassesService service) {
+    public void setService(KlassService service) {
         this.service = service;
     }
 
@@ -39,14 +39,14 @@ public class KlassesServiceTest {
     @Test
     public void shouldCreateKlasses() throws Exception {
 
-        Klasses classes = new Klasses();
+        Klass classes = new Klass();
 
         classes.setName("Primary");
         classes.setSemester(new Date() );
         classes.setDepartment("SCIENCE");
         classes.setFee(100.00d);
 
-        Klasses expected = this.service.create(classes);
+        Klass expected = this.service.create(classes);
 
         assertNotNull(expected);
         assertEquals(2,expected.getId());
@@ -56,7 +56,7 @@ public class KlassesServiceTest {
     @Test
     public void shouldGetClassesByName() throws Exception {
 
-        Klasses expected = this.service.findByName("asdf");
+        Klass expected = this.service.findByName("asdf");
 
         assertNotNull(expected);
         assertEquals(1,expected.getId());
@@ -66,7 +66,7 @@ public class KlassesServiceTest {
     @Test
     public void shouldGetClassesById() throws Exception {
 
-        Klasses expected = this.service.findById(1);
+        Klass expected = this.service.findById(1);
 
         assertNotNull(expected);
         assertEquals(1,expected.getId());
