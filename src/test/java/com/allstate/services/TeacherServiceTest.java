@@ -2,19 +2,20 @@ package com.allstate.services;
 
 import com.allstate.entities.Klass;
 import com.allstate.entities.Teacher;
-import com.allstate.enums.Department;
 import com.allstate.enums.Gender;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.annotation.Transactional;
+
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -24,8 +25,14 @@ import static org.junit.Assert.*;
 @Sql(value = {"/sql/seed.sql"})
 public class TeacherServiceTest {
 
-    @Autowired
+
     private TeacherService teacherService;
+
+    @Autowired
+    public void setTeacherService(TeacherService teacherService) {
+        this.teacherService = teacherService;
+    }
+
     @Autowired
     private KlassService klassService;
 
@@ -42,33 +49,23 @@ public class TeacherServiceTest {
     @Test
     public void shouldCreateTeacher() throws Exception {
 
-        Klass classes = new Klass();
-
-        classes.setName("Primary");
-        classes.setSemester(new Date() );
-        classes.setDepartment(Department.SCIENCE);
-        classes.setFee(100.00d);
-
-        this.klassService.create(classes);
-
         Teacher teacher = new Teacher();
 
         teacher.setName("Chyld");
         teacher.setAge(45);
         teacher.setGender(Gender.Male);
-        teacher.setKlass_id(classes);
 
         Teacher expected = this.teacherService.create(teacher);
 
         assertNotNull(expected);
-        assertEquals(2, expected.getId());
+        assertEquals(3, expected.getId());
         assertEquals("Chyld", expected.getName());
     }
 
     @Test
     public void getTeacherById() throws Exception {
 
-        Teacher expected = this.teacherService.getById(1);
+        Teacher expected = this.teacherService.findById(1);
 
         assertNotNull(expected);
         assertEquals("Andreas",expected.getName());
@@ -78,7 +75,7 @@ public class TeacherServiceTest {
     @Test
     public void getTeachersByGender() throws Exception {
 
-        ArrayList<Teacher> expected = (ArrayList) this.teacherService.getByGender(Gender.Male);
+        ArrayList<Teacher> expected = (ArrayList) this.teacherService.findByGender(Gender.Male);
 
         assertNotNull(expected);
         assertEquals(2,expected.size());
@@ -87,16 +84,27 @@ public class TeacherServiceTest {
     @Test
     public void getTeachersOlderthanACertainAge() throws Exception {
 
-        ArrayList<Teacher> expected = (ArrayList) this.teacherService.getTeachersOlderThan(30);
+        ArrayList<Teacher> expected = (ArrayList) this.teacherService.findByAgeGreaterThan(30);
 
         assertNotNull(expected);
         assertEquals(2,expected.size());
     }
 
     @Test
-    public void getTeachersTeachingACertainClass() throws Exception {
+    @Transactional
+    @Ignore(value = "Ignored because Functionality can't be written in TEST CASES")
+    public void shouldFindAllTheKlassesTaughtByTeacher() throws Exception {
+        List<Klass> listKlass = this.teacherService.findById(2).getKlasses();
 
+        assertEquals(1, listKlass.size());
+    }
 
+    @Test
+    @Transactional
+    public void shouldFindAllTheKlassesTaughtByTeacherByName() throws Exception {
+        List<Klass> excpected = this.teacherService.findAllClassesByTeacherName("Chyld");
+
+        assertEquals("qwerty", excpected.get(0).getName());
 
     }
 }

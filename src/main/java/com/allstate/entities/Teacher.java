@@ -8,6 +8,7 @@ import lombok.Data;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "teachers")
@@ -18,7 +19,7 @@ public class Teacher {
     private String name;
     private int age;
     private Gender gender;
-    private Klass klass_id;
+    private List<Klass> klasses;
     private Date created;
     private Date modified;
 
@@ -56,13 +57,12 @@ public class Teacher {
         this.gender = gender;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "klass_id")
+    @OneToMany(mappedBy = "teacher")
     @JsonIgnore
-    public Klass getKlass_id() {
-        return klass_id;
+    public List<Klass> getKlasses() {
+        return klasses;
     }
-    public void setKlass_id(Klass klass_id) {
-        this.klass_id = klass_id;
+    public void setKlasses(List<Klass> klasses) {
+        this.klasses = klasses;
     }
 }

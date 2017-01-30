@@ -12,29 +12,38 @@ INSERT INTO `students`
 VALUES
 ('asdf@asdf.asdf');
 
-INSERT INTO `klasses`
-(`name`,
- `semester`,
- `credits`,
- `department`,
- `fee`)
-VALUES
-  ('asdf', '2017-01-30 11:10:49', 2, 'ENGINEERING', 200.00);
+
 
 INSERT INTO `teachers`
 (
  `name`,
  `age`,
- `gender`,
- `klass_id`)
+ `gender`)
 VALUES
-  ('Andreas', 35, 'Male', 1);
+  ('Andreas', 35, 'Male');
 
 INSERT INTO `teachers`
 (
   `name`,
   `age`,
-  `gender`,
-  `klass_id`)
+  `gender`)
 VALUES
-  ('Chyld', 35, 'Male', 1);
+  ('Chyld', 35, 'Male');
+
+INSERT INTO `klasses`
+(`name`,
+ `semester`,
+ `credits`,
+ `department`,
+ `fee`, `teacher_id`)
+VALUES
+  ('asdf', '2017-01-30 11:10:49', 2, 'ENGINEERING', 200.00, 1);
+
+INSERT INTO `klasses`
+(`name`,
+ `semester`,
+ `credits`,
+ `department`,
+ `fee`, `teacher_id`)
+VALUES
+  ('qwerty', '2017-01-30 11:10:49', 2, 'SCIENCE', 100.00, 2);

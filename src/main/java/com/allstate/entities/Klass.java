@@ -24,6 +24,7 @@ public class Klass {
     private Double fee;
     private Date created;
     private Date modified;
+    private Teacher teacher;
 
     @Id
     @GeneratedValue
@@ -92,6 +93,13 @@ public class Klass {
         this.modified = modified;
     }
 
-
+    @ManyToOne
+    @JoinColumn(name="teacher_id")
+    public Teacher getTeacher() {
+        return teacher;
+    }
+    public void setTeacher(Teacher teacher) {
+        this.teacher = teacher;
+    }
 
 }

@@ -8,7 +8,10 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.ArrayList;
 
 public interface ITeacherRepository extends CrudRepository<Teacher,Integer>{
+
     Teacher findById(int id);
+
+    Teacher findByName(String name);
 
     Iterable<Teacher> findByGender(Gender gender);
 

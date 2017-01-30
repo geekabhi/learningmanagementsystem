@@ -1,7 +1,11 @@
 package com.allstate.services;
 
 import com.allstate.entities.Klass;
+import com.allstate.entities.Teacher;
 import com.allstate.enums.Department;
+import com.allstate.enums.Gender;
+import com.allstate.services.KlassService;
+import com.allstate.services.TeacherService;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -20,12 +24,11 @@ import static org.junit.Assert.*;
 @Sql(value = {"/sql/seed.sql"})
 public class KlassServiceTest {
 
-    private KlassService service;
+    @Autowired
+    private KlassService klassService;
 
     @Autowired
-    public void setService(KlassService service) {
-        this.service = service;
-    }
+    private TeacherService teacherService;
 
     @Before
     public void setUp() throws Exception {
@@ -40,24 +43,34 @@ public class KlassServiceTest {
     @Test
     public void shouldCreateKlasses() throws Exception {
 
-        Klass classes = new Klass();
+        Teacher teacher = new Teacher();
 
-        classes.setName("Primary");
-        classes.setSemester(new Date() );
-        classes.setDepartment(Department.SCIENCE);
-        classes.setFee(100.00d);
+        teacher.setName("Chyld");
+        teacher.setAge(45);
+        teacher.setGender(Gender.Male);
 
-        Klass expected = this.service.create(classes);
+        Teacher newTeacher = this.teacherService.create(teacher);
+
+
+        Klass klass = new Klass();
+
+        klass.setName("Primary");
+        klass.setSemester(new Date() );
+        klass.setDepartment(Department.SCIENCE);
+        klass.setFee(100.00d);
+        klass.setTeacher(teacher);
+
+        Klass expected = this.klassService.create(klass);
 
         assertNotNull(expected);
-        assertEquals(2,expected.getId());
+        assertEquals(3,expected.getId());
         assertEquals("Primary", expected.getName());
     }
 
     @Test
     public void shouldGetClassesByName() throws Exception {
 
-        Klass expected = this.service.findByName("asdf");
+        Klass expected = this.klassService.findByName("asdf");
 
         assertNotNull(expected);
         assertEquals(1,expected.getId());
@@ -67,7 +80,7 @@ public class KlassServiceTest {
     @Test
     public void shouldGetClassesById() throws Exception {
 
-        Klass expected = this.service.findById(1);
+        Klass expected = this.klassService.findById(1);
 
         assertNotNull(expected);
         assertEquals(1,expected.getId());
