@@ -16,17 +16,22 @@ public class StudentService {
         this.repository = repository;
     }
 
-    public Student create(Student student) {
-        return this.repository.save(student);
-    }
-
-    public Student findByEmail(String email) {
-        return this.repository.findByEmail(email);
-    }
-
     public Student create(String email) {
         Student student = new Student();
         student.setEmail(email);
         return this.create(student);
     }
+
+    public Student create(Student student) {
+        return this.repository.save(student);
+    }
+
+    public Student findById(int Id) {
+        return this.repository.findOne(Id);
+    }
+
+    public Student findByEmail(String email) {
+        return this.repository.findByEmail(email);
+    }
 }
+

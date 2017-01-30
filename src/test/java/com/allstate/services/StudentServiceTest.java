@@ -69,4 +69,14 @@ public class StudentServiceTest {
         assertEquals("asdf@asdf.asdf",expected.getEmail());
 
     }
+
+    @Test
+    public void shouldFindStudentById() throws Exception {
+
+        Student expected = this.service.findById(1);
+
+        assertNotNull(expected);
+        assertEquals("asdf@asdf.asdf",expected.getEmail());
+
+    }
 }
