@@ -1,6 +1,7 @@
 package com.allstate.services;
 
 import com.allstate.entities.Klass;
+import com.allstate.enums.Department;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -43,7 +44,7 @@ public class KlassServiceTest {
 
         classes.setName("Primary");
         classes.setSemester(new Date() );
-        classes.setDepartment("SCIENCE");
+        classes.setDepartment(Department.SCIENCE);
         classes.setFee(100.00d);
 
         Klass expected = this.service.create(classes);

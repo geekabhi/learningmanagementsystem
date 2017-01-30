@@ -1,6 +1,7 @@
 package com.allstate.entities;
 
 
+import com.allstate.enums.Department;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -19,7 +20,7 @@ public class Klass {
     private String name;
     private Date semester;
     private int credits;
-    private String department;
+    private Department department;
     private Double fee;
     private Date created;
     private Date modified;
@@ -59,11 +60,11 @@ public class Klass {
     }
 
     @Column(nullable = false, columnDefinition = "ENUM('SCIENCE', 'ENGINEERING', 'LITERATURE', 'PHILOSOPHY')")
-    @NotNull
-    public String getDepartment() {
+    @Enumerated(EnumType.STRING)
+    public Department getDepartment() {
         return department;
     }
-    public void setDepartment(String department) {
+    public void setDepartment(Department department) {
         this.department = department;
     }
 

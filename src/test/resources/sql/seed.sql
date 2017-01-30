@@ -1,7 +1,11 @@
 use lms_test;
 
+set FOREIGN_KEY_CHECKS = 0;
+truncate table teachers;
+truncate table klasses;
+set FOREIGN_KEY_CHECKS = 1;
+
 TRUNCATE TABLE students;
-TRUNCATE TABLE klasses;
 
 INSERT INTO `students`
 (`email`)
@@ -16,3 +20,21 @@ INSERT INTO `klasses`
  `fee`)
 VALUES
   ('asdf', '2017-01-30 11:10:49', 2, 'ENGINEERING', 200.00);
+
+INSERT INTO `teachers`
+(
+ `name`,
+ `age`,
+ `gender`,
+ `klass_id`)
+VALUES
+  ('Andreas', 35, 'Male', 1);
+
+INSERT INTO `teachers`
+(
+  `name`,
+  `age`,
+  `gender`,
+  `klass_id`)
+VALUES
+  ('Chyld', 35, 'Male', 1);
